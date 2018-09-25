@@ -1,12 +1,13 @@
 USE [ERM_BI]
 GO
 
-/****** Object:  View [dbo].[RevenueDetails]    Script Date: 8/14/2018 12:30:51 PM ******/
+/****** Object:  View [dbo].[RevenueDetails]    Script Date: 9/25/2018 5:28:58 PM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 
 
@@ -29,28 +30,40 @@ SELECT
 	Revenue.[Period] AS Period,
 	Revenue.Source AS Source,
 	Revenue.ClientNumber AS ClientNumber,
+	Clients.ID AS ClientID,
 	Clients.CRMID AS CRM_ID,
 	Clients.Description AS ClientDescription,
+	ParentClients.ID AS ParentClientID,
 	ParentClients.Description AS ParentClientDescription,
+	SalesAccounts.ID AS SalesAccountID,
 	SalesAccounts.Description AS SalesAccountsDescription,
+	Companies.ID AS CompanyID,
 	Companies.Code AS CompanyCode,
 	Companies.Description AS CompanyDescription,
+	MngmtGeo.ID AS MngmtGeoID,
 	MngmtGeo.Code AS MngmtGeoCode,
 	MngmtGeo.Description AS MngmtGeoDescription,
+	Geo.ID AS GeoID,
 	Geo.Code AS GeoCode,
 	Geo.Description AS GeoDescription,
+	SubGeo.ID AS SubGeoID,
 	SubGeo.Code AS SubGeoCode,
 	SubGeo.Description AS SubGeoDescription,
+	Seg.ID AS SegmentID,
 	Seg.Code AS SegmentCode,
 	Seg.Description AS SegmentDescription,
+	SubSeg.ID AS SubSegmentID,
 	SubSeg.Code AS SubSegmentCode,
 	SubSeg.Description AS SubSegmentDescription,
+	SubSubSeg.ID AS SubSubSegmentID,
 	SubSubSeg.Code AS SubSubSegmentCode,
 	SubSubSeg.Description AS SubSubSegmentDescription,
 	HFMAccounts.Code AS Account,
 	HFMAccounts.ParentCode AS ParentAccount,
+	BU.ID AS BU_ID,
 	BU.Code AS BUCode,
 	BU.Description AS BUDescription,
+	Curr.ID AS CurrencyID,
 	Curr.Description AS Currency,
 	Revenue.Amount AS Amount,
 	Revenue.AmountUSD AS AmountUSD
@@ -84,6 +97,7 @@ FROM
 	ON Revenue.CurrencyID = Curr.ID
 	LEFT JOIN HFMAccounts AS HFMAccounts
 	ON Revenue.AccountID = HFMAccounts.ID
+
 
 
 GO
