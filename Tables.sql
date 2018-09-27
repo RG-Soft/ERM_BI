@@ -1,7 +1,7 @@
 USE [ERM_BI]
 GO
 
-/****** Object:  Table [dbo].[BusinessUnits]    Script Date: 8/14/2018 12:07:08 PM ******/
+/****** Object:  Table [dbo].[BusinessUnits]    Script Date: 9/27/2018 6:29:19 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -21,7 +21,7 @@ PRIMARY KEY CLUSTERED
 
 GO
 
-/****** Object:  Table [dbo].[ClientHierarchy]    Script Date: 8/14/2018 12:07:08 PM ******/
+/****** Object:  Table [dbo].[ClientHierarchy]    Script Date: 9/27/2018 6:29:19 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -36,7 +36,7 @@ CREATE TABLE [dbo].[ClientHierarchy](
 
 GO
 
-/****** Object:  Table [dbo].[Clients]    Script Date: 8/14/2018 12:07:08 PM ******/
+/****** Object:  Table [dbo].[Clients]    Script Date: 9/27/2018 6:29:19 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -67,7 +67,53 @@ PRIMARY KEY CLUSTERED
 
 GO
 
-/****** Object:  Table [dbo].[Currencies]    Script Date: 8/14/2018 12:07:08 PM ******/
+/****** Object:  Table [dbo].[Contracts]    Script Date: 9/27/2018 6:29:19 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Contracts](
+	[ID] [nvarchar](36) NOT NULL,
+	[DeletionMark] [bit] NOT NULL,
+	[OwnerID] [nvarchar](36) NULL,
+	[Code] [nchar](9) NOT NULL,
+	[Description] [nvarchar](150) NOT NULL,
+	[CurrencyID] [nvarchar](36) NULL,
+	[CompanyID] [nvarchar](36) NULL,
+	[Date] [datetime] NULL,
+	[Number] [nvarchar](20) NULL,
+	[PTType] [nvarchar](8) NULL,
+	[PTDaysFrom] [numeric](2, 0) NULL,
+	[PTDaysTo] [numeric](5, 0) NULL,
+	[PIC_ID] [nvarchar](20) NULL,
+	[ChecklistRequired] [bit] NOT NULL,
+	[Trigger] [nvarchar](50) NULL,
+	[ContractID] [nvarchar](10) NULL,
+	[SourceID] [nvarchar](3) NULL,
+	[crmContractID] [nvarchar](25) NULL,
+	[crmCreatedBy] [nvarchar](20) NULL,
+	[crmCreatedDate] [datetime] NULL,
+	[crmEffectiveDate] [datetime] NULL,
+	[crmExpiryDate] [datetime] NULL,
+	[crmContractCurrency] [nvarchar](3) NULL,
+	[crmContractValueUSD] [numeric](15, 2) NULL,
+	[crmContractName] [nvarchar](150) NULL,
+	[crmDFNName] [nvarchar](50) NULL,
+	[DocumentFlowPeriodFrom] [numeric](2, 0) NULL,
+	[DocumentFlowPeriodTo] [numeric](2, 0) NULL,
+	[Amendment] [bit] NOT NULL,
+	[AmendmentName] [nvarchar](50) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+/****** Object:  Table [dbo].[Currencies]    Script Date: 9/27/2018 6:29:19 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -88,7 +134,7 @@ PRIMARY KEY CLUSTERED
 
 GO
 
-/****** Object:  Table [dbo].[HFM_Companies]    Script Date: 8/14/2018 12:07:08 PM ******/
+/****** Object:  Table [dbo].[HFM_Companies]    Script Date: 9/27/2018 6:29:19 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -108,7 +154,7 @@ PRIMARY KEY CLUSTERED
 
 GO
 
-/****** Object:  Table [dbo].[HFM_Geomarkets]    Script Date: 8/14/2018 12:07:08 PM ******/
+/****** Object:  Table [dbo].[HFM_Geomarkets]    Script Date: 9/27/2018 6:29:19 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -130,7 +176,7 @@ PRIMARY KEY CLUSTERED
 
 GO
 
-/****** Object:  Table [dbo].[HFM_GL_Accounts]    Script Date: 8/14/2018 12:07:08 PM ******/
+/****** Object:  Table [dbo].[HFM_GL_Accounts]    Script Date: 9/27/2018 6:29:19 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -152,7 +198,7 @@ PRIMARY KEY CLUSTERED
 
 GO
 
-/****** Object:  Table [dbo].[HFM_Technology]    Script Date: 8/14/2018 12:07:08 PM ******/
+/****** Object:  Table [dbo].[HFM_Technology]    Script Date: 9/27/2018 6:29:19 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -173,7 +219,7 @@ PRIMARY KEY CLUSTERED
 
 GO
 
-/****** Object:  Table [dbo].[ManagementGeography]    Script Date: 8/14/2018 12:07:08 PM ******/
+/****** Object:  Table [dbo].[ManagementGeography]    Script Date: 9/27/2018 6:29:19 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -193,7 +239,7 @@ PRIMARY KEY CLUSTERED
 
 GO
 
-/****** Object:  Table [dbo].[Revenue]    Script Date: 8/14/2018 12:07:08 PM ******/
+/****** Object:  Table [dbo].[Revenue]    Script Date: 9/27/2018 6:29:19 PM ******/
 SET ANSI_NULLS ON
 GO
 
