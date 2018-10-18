@@ -1,7 +1,7 @@
 USE [ERM_BI]
 GO
 
-/****** Object:  Table [dbo].[AccountingUnits]    Script Date: 10/4/2018 6:54:58 PM ******/
+/****** Object:  Table [dbo].[AccountingUnits]    Script Date: 10/18/2018 6:21:56 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -24,7 +24,7 @@ PRIMARY KEY CLUSTERED
 
 GO
 
-/****** Object:  Table [dbo].[AR_Details]    Script Date: 10/4/2018 6:54:58 PM ******/
+/****** Object:  Table [dbo].[AR_Details]    Script Date: 10/18/2018 6:21:56 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -52,7 +52,7 @@ CREATE TABLE [dbo].[AR_Details](
 
 GO
 
-/****** Object:  Table [dbo].[BusinessUnits]    Script Date: 10/4/2018 6:54:58 PM ******/
+/****** Object:  Table [dbo].[BusinessUnits]    Script Date: 10/18/2018 6:21:56 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -72,7 +72,7 @@ PRIMARY KEY CLUSTERED
 
 GO
 
-/****** Object:  Table [dbo].[CashBatch]    Script Date: 10/4/2018 6:54:58 PM ******/
+/****** Object:  Table [dbo].[CashBatch]    Script Date: 10/18/2018 6:21:56 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -90,6 +90,7 @@ CREATE TABLE [dbo].[CashBatch](
 	[Source] [nvarchar](50) NOT NULL,
 	[Prepayment] [bit] NOT NULL,
 	[PaymentDate] [datetime] NOT NULL,
+	[PaymentNumber] [nvarchar](25) NOT NULL,
 	[CompanyID] [nvarchar](36) NULL,
 	[ClientID] [nvarchar](36) NULL,
 	[Agreement] [nvarchar](150) NOT NULL,
@@ -107,7 +108,7 @@ GO
 SET ANSI_PADDING OFF
 GO
 
-/****** Object:  Table [dbo].[ClientHierarchy]    Script Date: 10/4/2018 6:54:58 PM ******/
+/****** Object:  Table [dbo].[ClientHierarchy]    Script Date: 10/18/2018 6:21:56 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -122,7 +123,7 @@ CREATE TABLE [dbo].[ClientHierarchy](
 
 GO
 
-/****** Object:  Table [dbo].[Clients]    Script Date: 10/4/2018 6:54:58 PM ******/
+/****** Object:  Table [dbo].[Clients]    Script Date: 10/18/2018 6:21:56 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -153,7 +154,7 @@ PRIMARY KEY CLUSTERED
 
 GO
 
-/****** Object:  Table [dbo].[Contracts]    Script Date: 10/4/2018 6:54:58 PM ******/
+/****** Object:  Table [dbo].[Contracts]    Script Date: 10/18/2018 6:21:56 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -199,7 +200,7 @@ PRIMARY KEY CLUSTERED
 
 GO
 
-/****** Object:  Table [dbo].[Currencies]    Script Date: 10/4/2018 6:54:58 PM ******/
+/****** Object:  Table [dbo].[Currencies]    Script Date: 10/18/2018 6:21:56 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -220,7 +221,7 @@ PRIMARY KEY CLUSTERED
 
 GO
 
-/****** Object:  Table [dbo].[DocumentJournal]    Script Date: 10/4/2018 6:54:58 PM ******/
+/****** Object:  Table [dbo].[DocumentJournal]    Script Date: 10/18/2018 6:21:56 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -239,7 +240,7 @@ PRIMARY KEY CLUSTERED
 
 GO
 
-/****** Object:  Table [dbo].[HFM_Companies]    Script Date: 10/4/2018 6:54:58 PM ******/
+/****** Object:  Table [dbo].[HFM_Companies]    Script Date: 10/18/2018 6:21:56 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -259,7 +260,7 @@ PRIMARY KEY CLUSTERED
 
 GO
 
-/****** Object:  Table [dbo].[HFM_Geomarkets]    Script Date: 10/4/2018 6:54:58 PM ******/
+/****** Object:  Table [dbo].[HFM_Geomarkets]    Script Date: 10/18/2018 6:21:56 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -281,7 +282,7 @@ PRIMARY KEY CLUSTERED
 
 GO
 
-/****** Object:  Table [dbo].[HFM_GL_Accounts]    Script Date: 10/4/2018 6:54:58 PM ******/
+/****** Object:  Table [dbo].[HFM_GL_Accounts]    Script Date: 10/18/2018 6:21:56 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -303,7 +304,7 @@ PRIMARY KEY CLUSTERED
 
 GO
 
-/****** Object:  Table [dbo].[HFM_Technology]    Script Date: 10/4/2018 6:54:58 PM ******/
+/****** Object:  Table [dbo].[HFM_Technology]    Script Date: 10/18/2018 6:21:56 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -324,7 +325,23 @@ PRIMARY KEY CLUSTERED
 
 GO
 
-/****** Object:  Table [dbo].[Invoice]    Script Date: 10/4/2018 6:54:58 PM ******/
+/****** Object:  Table [dbo].[InternalRates]    Script Date: 10/18/2018 6:21:56 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[InternalRates](
+	[Period] [datetime] NOT NULL,
+	[CurrencyID] [nvarchar](36) NOT NULL,
+	[Rate] [numeric](10, 4) NOT NULL,
+	[Multiplicity] [numeric](10, 0) NOT NULL
+) ON [PRIMARY]
+
+GO
+
+/****** Object:  Table [dbo].[Invoice]    Script Date: 10/18/2018 6:21:56 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -353,6 +370,7 @@ CREATE TABLE [dbo].[Invoice](
 	[DueDateFrom] [datetime2](0) NOT NULL,
 	[DueDateTo] [datetime2](0) NOT NULL,
 	[Agreement] [nvarchar](150) NOT NULL,
+	[DocNumber] [nvarchar](25) NULL,
 	[KSReturnDate] [datetime2](0) NOT NULL,
 	[KSDepartureDate] [datetime2](0) NOT NULL,
 	[KSReturnStatus] [nvarchar](100) NOT NULL,
@@ -369,7 +387,7 @@ GO
 SET ANSI_PADDING OFF
 GO
 
-/****** Object:  Table [dbo].[JournalEntry]    Script Date: 10/4/2018 6:54:58 PM ******/
+/****** Object:  Table [dbo].[JournalEntry]    Script Date: 10/18/2018 6:21:56 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -402,7 +420,7 @@ GO
 SET ANSI_PADDING OFF
 GO
 
-/****** Object:  Table [dbo].[LegalEntiites]    Script Date: 10/4/2018 6:54:58 PM ******/
+/****** Object:  Table [dbo].[LegalEntiites]    Script Date: 10/18/2018 6:21:56 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -424,7 +442,7 @@ PRIMARY KEY CLUSTERED
 
 GO
 
-/****** Object:  Table [dbo].[ManagementGeography]    Script Date: 10/4/2018 6:54:58 PM ******/
+/****** Object:  Table [dbo].[ManagementGeography]    Script Date: 10/18/2018 6:21:56 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -444,7 +462,7 @@ PRIMARY KEY CLUSTERED
 
 GO
 
-/****** Object:  Table [dbo].[Memo]    Script Date: 10/4/2018 6:54:58 PM ******/
+/****** Object:  Table [dbo].[Memo]    Script Date: 10/18/2018 6:21:56 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -477,7 +495,7 @@ GO
 SET ANSI_PADDING OFF
 GO
 
-/****** Object:  Table [dbo].[Revenue]    Script Date: 10/4/2018 6:54:58 PM ******/
+/****** Object:  Table [dbo].[Revenue]    Script Date: 10/18/2018 6:21:56 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -490,8 +508,6 @@ CREATE TABLE [dbo].[Revenue](
 	[ClientNumber] [nvarchar](50) NULL,
 	[ClientID] [nvarchar](36) NULL,
 	[CompanyID] [nvarchar](36) NULL,
-	[SubGeomarketID] [nvarchar](36) NULL,
-	[SubSubSegmentID] [nvarchar](36) NULL,
 	[AccountID] [nvarchar](36) NULL,
 	[BusinessUnitID] [nvarchar](36) NULL,
 	[CurrencyID] [nvarchar](36) NOT NULL,
@@ -502,7 +518,7 @@ CREATE TABLE [dbo].[Revenue](
 
 GO
 
-/****** Object:  Table [dbo].[SalesOrder]    Script Date: 10/4/2018 6:54:58 PM ******/
+/****** Object:  Table [dbo].[SalesOrder]    Script Date: 10/18/2018 6:21:56 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -575,6 +591,10 @@ ALTER TABLE [dbo].[AR_Details]  WITH CHECK ADD FOREIGN KEY([DocumentType], [Docu
 REFERENCES [dbo].[DocumentJournal] ([TypeName], [DocumentID])
 GO
 
+ALTER TABLE [dbo].[CashBatch]  WITH CHECK ADD FOREIGN KEY([TypeName], [ID])
+REFERENCES [dbo].[DocumentJournal] ([TypeName], [DocumentID])
+GO
+
 ALTER TABLE [dbo].[CashBatch]  WITH CHECK ADD FOREIGN KEY([ClientID])
 REFERENCES [dbo].[Clients] ([ID])
 GO
@@ -627,6 +647,10 @@ ALTER TABLE [dbo].[HFM_Technology]  WITH CHECK ADD FOREIGN KEY([ParentID])
 REFERENCES [dbo].[HFM_Technology] ([ID])
 GO
 
+ALTER TABLE [dbo].[InternalRates]  WITH CHECK ADD FOREIGN KEY([CurrencyID])
+REFERENCES [dbo].[Currencies] ([ID])
+GO
+
 ALTER TABLE [dbo].[Invoice]  WITH CHECK ADD FOREIGN KEY([TypeName], [ID])
 REFERENCES [dbo].[DocumentJournal] ([TypeName], [DocumentID])
 GO
@@ -663,8 +687,16 @@ ALTER TABLE [dbo].[JournalEntry]  WITH CHECK ADD FOREIGN KEY([CurrencyID])
 REFERENCES [dbo].[Currencies] ([ID])
 GO
 
+ALTER TABLE [dbo].[JournalEntry]  WITH CHECK ADD FOREIGN KEY([TypeName], [ID])
+REFERENCES [dbo].[DocumentJournal] ([TypeName], [DocumentID])
+GO
+
 ALTER TABLE [dbo].[LegalEntiites]  WITH CHECK ADD FOREIGN KEY([OwnerID])
 REFERENCES [dbo].[HFM_Companies] ([ID])
+GO
+
+ALTER TABLE [dbo].[Memo]  WITH CHECK ADD FOREIGN KEY([TypeName], [ID])
+REFERENCES [dbo].[DocumentJournal] ([TypeName], [DocumentID])
 GO
 
 ALTER TABLE [dbo].[Memo]  WITH CHECK ADD FOREIGN KEY([ClientID])
@@ -703,14 +735,6 @@ ALTER TABLE [dbo].[Revenue]  WITH CHECK ADD FOREIGN KEY([CurrencyID])
 REFERENCES [dbo].[Currencies] ([ID])
 GO
 
-ALTER TABLE [dbo].[Revenue]  WITH CHECK ADD FOREIGN KEY([SubGeomarketID])
-REFERENCES [dbo].[HFM_Geomarkets] ([ID])
-GO
-
-ALTER TABLE [dbo].[Revenue]  WITH CHECK ADD FOREIGN KEY([SubSubSegmentID])
-REFERENCES [dbo].[HFM_Technology] ([ID])
-GO
-
 ALTER TABLE [dbo].[SalesOrder]  WITH CHECK ADD FOREIGN KEY([ClientID])
 REFERENCES [dbo].[Clients] ([ID])
 GO
@@ -721,6 +745,10 @@ GO
 
 ALTER TABLE [dbo].[SalesOrder]  WITH CHECK ADD FOREIGN KEY([CurrencyID])
 REFERENCES [dbo].[Currencies] ([ID])
+GO
+
+ALTER TABLE [dbo].[SalesOrder]  WITH CHECK ADD FOREIGN KEY([TypeName], [ID])
+REFERENCES [dbo].[DocumentJournal] ([TypeName], [DocumentID])
 GO
 
 
