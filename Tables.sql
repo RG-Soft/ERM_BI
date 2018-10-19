@@ -1,7 +1,7 @@
 USE [ERM_BI]
 GO
 
-/****** Object:  Table [dbo].[AccountingUnits]    Script Date: 10/18/2018 6:21:56 PM ******/
+/****** Object:  Table [dbo].[AccountingUnits]    Script Date: 10/19/2018 7:11:14 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -24,7 +24,7 @@ PRIMARY KEY CLUSTERED
 
 GO
 
-/****** Object:  Table [dbo].[AR_Details]    Script Date: 10/18/2018 6:21:56 PM ******/
+/****** Object:  Table [dbo].[AR_Details]    Script Date: 10/19/2018 7:11:14 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -52,7 +52,7 @@ CREATE TABLE [dbo].[AR_Details](
 
 GO
 
-/****** Object:  Table [dbo].[BusinessUnits]    Script Date: 10/18/2018 6:21:56 PM ******/
+/****** Object:  Table [dbo].[BusinessUnits]    Script Date: 10/19/2018 7:11:14 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -72,7 +72,7 @@ PRIMARY KEY CLUSTERED
 
 GO
 
-/****** Object:  Table [dbo].[CashBatch]    Script Date: 10/18/2018 6:21:56 PM ******/
+/****** Object:  Table [dbo].[CashBatch]    Script Date: 10/19/2018 7:11:14 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -108,7 +108,7 @@ GO
 SET ANSI_PADDING OFF
 GO
 
-/****** Object:  Table [dbo].[ClientHierarchy]    Script Date: 10/18/2018 6:21:56 PM ******/
+/****** Object:  Table [dbo].[ClientHierarchy]    Script Date: 10/19/2018 7:11:14 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -123,7 +123,7 @@ CREATE TABLE [dbo].[ClientHierarchy](
 
 GO
 
-/****** Object:  Table [dbo].[Clients]    Script Date: 10/18/2018 6:21:56 PM ******/
+/****** Object:  Table [dbo].[Clients]    Script Date: 10/19/2018 7:11:14 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -154,7 +154,7 @@ PRIMARY KEY CLUSTERED
 
 GO
 
-/****** Object:  Table [dbo].[Contracts]    Script Date: 10/18/2018 6:21:56 PM ******/
+/****** Object:  Table [dbo].[Contracts]    Script Date: 10/19/2018 7:11:14 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -200,7 +200,7 @@ PRIMARY KEY CLUSTERED
 
 GO
 
-/****** Object:  Table [dbo].[Currencies]    Script Date: 10/18/2018 6:21:56 PM ******/
+/****** Object:  Table [dbo].[Currencies]    Script Date: 10/19/2018 7:11:14 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -221,7 +221,7 @@ PRIMARY KEY CLUSTERED
 
 GO
 
-/****** Object:  Table [dbo].[DocumentJournal]    Script Date: 10/18/2018 6:21:56 PM ******/
+/****** Object:  Table [dbo].[DocumentJournal]    Script Date: 10/19/2018 7:11:14 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -240,7 +240,52 @@ PRIMARY KEY CLUSTERED
 
 GO
 
-/****** Object:  Table [dbo].[HFM_Companies]    Script Date: 10/18/2018 6:21:56 PM ******/
+/****** Object:  Table [dbo].[DSO_Details]    Script Date: 10/19/2018 7:11:14 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[DSO_Details](
+	[Period] [datetime] NOT NULL,
+	[Source] [nvarchar](50) NOT NULL,
+	[ClientID] [nvarchar](36) NULL,
+	[CompanyID] [nvarchar](36) NULL,
+	[LegalEntityID] [nvarchar](36) NULL,
+	[AU_ID] [nvarchar](36) NULL,
+	[BusinessUnitID] [nvarchar](36) NULL,
+	[AR] [numeric](21, 2) NOT NULL,
+	[Billing0] [numeric](21, 2) NOT NULL,
+	[Billing1] [numeric](21, 2) NOT NULL,
+	[Billing2] [numeric](21, 2) NOT NULL,
+	[Billing3] [numeric](21, 2) NOT NULL,
+	[Billing4] [numeric](21, 2) NOT NULL,
+	[Billing5] [numeric](21, 2) NOT NULL,
+	[Billing6] [numeric](21, 2) NOT NULL,
+	[Billing7] [numeric](21, 2) NOT NULL,
+	[Billing8] [numeric](21, 2) NOT NULL,
+	[Billing9] [numeric](21, 2) NOT NULL,
+	[Billing10] [numeric](21, 2) NOT NULL,
+	[Billing11] [numeric](21, 2) NOT NULL,
+	[Billing12] [numeric](21, 2) NOT NULL,
+	[Billing13] [numeric](21, 2) NOT NULL,
+	[Billing14] [numeric](21, 2) NOT NULL,
+	[Billing15] [numeric](21, 2) NOT NULL,
+	[Billing16] [numeric](21, 2) NOT NULL,
+	[Billing17] [numeric](21, 2) NOT NULL,
+	[Billing18] [numeric](21, 2) NOT NULL,
+	[Billing19] [numeric](21, 2) NOT NULL,
+	[Billing20] [numeric](21, 2) NOT NULL,
+	[Billing21] [numeric](21, 2) NOT NULL,
+	[Billing22] [numeric](21, 2) NOT NULL,
+	[Billing23] [numeric](21, 2) NOT NULL,
+	[Billing24] [numeric](21, 2) NOT NULL
+) ON [PRIMARY]
+
+GO
+
+/****** Object:  Table [dbo].[HFM_Companies]    Script Date: 10/19/2018 7:11:14 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -260,7 +305,7 @@ PRIMARY KEY CLUSTERED
 
 GO
 
-/****** Object:  Table [dbo].[HFM_Geomarkets]    Script Date: 10/18/2018 6:21:56 PM ******/
+/****** Object:  Table [dbo].[HFM_Geomarkets]    Script Date: 10/19/2018 7:11:14 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -282,7 +327,7 @@ PRIMARY KEY CLUSTERED
 
 GO
 
-/****** Object:  Table [dbo].[HFM_GL_Accounts]    Script Date: 10/18/2018 6:21:56 PM ******/
+/****** Object:  Table [dbo].[HFM_GL_Accounts]    Script Date: 10/19/2018 7:11:14 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -304,7 +349,7 @@ PRIMARY KEY CLUSTERED
 
 GO
 
-/****** Object:  Table [dbo].[HFM_Technology]    Script Date: 10/18/2018 6:21:56 PM ******/
+/****** Object:  Table [dbo].[HFM_Technology]    Script Date: 10/19/2018 7:11:14 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -325,7 +370,7 @@ PRIMARY KEY CLUSTERED
 
 GO
 
-/****** Object:  Table [dbo].[InternalRates]    Script Date: 10/18/2018 6:21:56 PM ******/
+/****** Object:  Table [dbo].[InternalRates]    Script Date: 10/19/2018 7:11:14 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -341,7 +386,7 @@ CREATE TABLE [dbo].[InternalRates](
 
 GO
 
-/****** Object:  Table [dbo].[Invoice]    Script Date: 10/18/2018 6:21:56 PM ******/
+/****** Object:  Table [dbo].[Invoice]    Script Date: 10/19/2018 7:11:14 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -387,7 +432,7 @@ GO
 SET ANSI_PADDING OFF
 GO
 
-/****** Object:  Table [dbo].[JournalEntry]    Script Date: 10/18/2018 6:21:56 PM ******/
+/****** Object:  Table [dbo].[JournalEntry]    Script Date: 10/19/2018 7:11:14 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -420,7 +465,7 @@ GO
 SET ANSI_PADDING OFF
 GO
 
-/****** Object:  Table [dbo].[LegalEntiites]    Script Date: 10/18/2018 6:21:56 PM ******/
+/****** Object:  Table [dbo].[LegalEntiites]    Script Date: 10/19/2018 7:11:14 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -442,7 +487,7 @@ PRIMARY KEY CLUSTERED
 
 GO
 
-/****** Object:  Table [dbo].[ManagementGeography]    Script Date: 10/18/2018 6:21:56 PM ******/
+/****** Object:  Table [dbo].[ManagementGeography]    Script Date: 10/19/2018 7:11:14 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -462,7 +507,7 @@ PRIMARY KEY CLUSTERED
 
 GO
 
-/****** Object:  Table [dbo].[Memo]    Script Date: 10/18/2018 6:21:56 PM ******/
+/****** Object:  Table [dbo].[Memo]    Script Date: 10/19/2018 7:11:14 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -495,7 +540,7 @@ GO
 SET ANSI_PADDING OFF
 GO
 
-/****** Object:  Table [dbo].[Revenue]    Script Date: 10/18/2018 6:21:56 PM ******/
+/****** Object:  Table [dbo].[Revenue]    Script Date: 10/19/2018 7:11:14 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -518,7 +563,7 @@ CREATE TABLE [dbo].[Revenue](
 
 GO
 
-/****** Object:  Table [dbo].[SalesOrder]    Script Date: 10/18/2018 6:21:56 PM ******/
+/****** Object:  Table [dbo].[SalesOrder]    Script Date: 10/19/2018 7:11:14 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -629,6 +674,26 @@ GO
 
 ALTER TABLE [dbo].[Contracts]  WITH CHECK ADD FOREIGN KEY([OwnerID])
 REFERENCES [dbo].[Clients] ([ID])
+GO
+
+ALTER TABLE [dbo].[DSO_Details]  WITH CHECK ADD FOREIGN KEY([AU_ID])
+REFERENCES [dbo].[AccountingUnits] ([ID])
+GO
+
+ALTER TABLE [dbo].[DSO_Details]  WITH CHECK ADD FOREIGN KEY([BusinessUnitID])
+REFERENCES [dbo].[BusinessUnits] ([ID])
+GO
+
+ALTER TABLE [dbo].[DSO_Details]  WITH CHECK ADD FOREIGN KEY([ClientID])
+REFERENCES [dbo].[Clients] ([ID])
+GO
+
+ALTER TABLE [dbo].[DSO_Details]  WITH CHECK ADD FOREIGN KEY([CompanyID])
+REFERENCES [dbo].[HFM_Companies] ([ID])
+GO
+
+ALTER TABLE [dbo].[DSO_Details]  WITH CHECK ADD FOREIGN KEY([LegalEntityID])
+REFERENCES [dbo].[LegalEntiites] ([ID])
 GO
 
 ALTER TABLE [dbo].[HFM_Geomarkets]  WITH CHECK ADD FOREIGN KEY([ManagementGeomarketID])

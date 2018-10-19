@@ -1,7 +1,7 @@
 USE [ERM_BI]
 GO
 
-/****** Object:  View [dbo].[AR_Details_View]    Script Date: 10/18/2018 6:23:27 PM ******/
+/****** Object:  View [dbo].[AR_Details_View]    Script Date: 10/19/2018 7:12:10 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -205,7 +205,7 @@ FROM
 
 GO
 
-/****** Object:  View [dbo].[RevenueDetails]    Script Date: 10/18/2018 6:23:27 PM ******/
+/****** Object:  View [dbo].[DSO_Details_View]    Script Date: 10/19/2018 7:12:10 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -216,7 +216,120 @@ GO
 
 
 
-CREATE VIEW [dbo].[RevenueDetails]
+
+CREATE VIEW [dbo].[DSO_Details_View]
+AS
+
+SELECT
+	DSO_Details.[Period] AS Period,
+	DSO_Details.Source AS Source,
+	Clients.ID AS ClientID,
+	Clients.CRMID AS CRM_ID,
+	Clients.Description AS ClientDescription,
+	ParentClients.ID AS ParentClientID,
+	ParentClients.Description AS ParentClientDescription,
+	SalesAccounts.ID AS SalesAccountID,
+	SalesAccounts.Description AS SalesAccountsDescription,
+	Companies.ID AS CompanyID,
+	Companies.Code AS CompanyCode,
+	Companies.Description AS CompanyDescription,
+	MngmtGeo.ID AS MngmtGeoID,
+	MngmtGeo.Code AS MngmtGeoCode,
+	MngmtGeo.Description AS MngmtGeoDescription,
+	Geo.ID AS GeoID,
+	Geo.Code AS GeoCode,
+	Geo.Description AS GeoDescription,
+	SubGeo.ID AS SubGeoID,
+	SubGeo.Code AS SubGeoCode,
+	SubGeo.Description AS SubGeoDescription,
+	Seg.ID AS SegmentID,
+	Seg.Code AS SegmentCode,
+	Seg.Description AS SegmentDescription,
+	SubSeg.ID AS SubSegmentID,
+	SubSeg.Code AS SubSegmentCode,
+	SubSeg.Description AS SubSegmentDescription,
+	SubSubSeg.ID AS SubSubSegmentID,
+	SubSubSeg.Code AS SubSubSegmentCode,
+	SubSubSeg.Description AS SubSubSegmentDescription,
+	AU.ID AS AU_ID,
+	AU.Code AS AU_Code,
+	AU.Description AS AU_Description,
+	BU.ID AS BU_ID,
+	BU.Code AS BUCode,
+	BU.Description AS BUDescription,
+	DSO_Details.AR AS AR,
+	DSO_Details.Billing0 AS Billing0,
+	DSO_Details.Billing1 AS Billing1,
+	DSO_Details.Billing2 AS Billing2,
+	DSO_Details.Billing3 AS Billing3,
+	DSO_Details.Billing4 AS Billing4,
+	DSO_Details.Billing5 AS Billing5,
+	DSO_Details.Billing6 AS Billing6,
+	DSO_Details.Billing7 AS Billing7,
+	DSO_Details.Billing8 AS Billing8,
+	DSO_Details.Billing9 AS Billing9,
+	DSO_Details.Billing10 AS Billing10,
+	DSO_Details.Billing11 AS Billing11,
+	DSO_Details.Billing12 AS Billing12,
+	DSO_Details.Billing13 AS Billing13,
+	DSO_Details.Billing14 AS Billing14,
+	DSO_Details.Billing15 AS Billing15,
+	DSO_Details.Billing16 AS Billing16,
+	DSO_Details.Billing17 AS Billing17,
+	DSO_Details.Billing18 AS Billing18,
+	DSO_Details.Billing19 AS Billing19,
+	DSO_Details.Billing20 AS Billing20,
+	DSO_Details.Billing21 AS Billing21,
+	DSO_Details.Billing22 AS Billing22,
+	DSO_Details.Billing23 AS Billing23,
+	DSO_Details.Billing24 AS Billing24
+FROM
+	[dbo].[DSO_Details] AS DSO_Details
+	LEFT JOIN [dbo].[Clients] AS Clients
+	ON DSO_Details.ClientID = Clients.ID
+	LEFT JOIN [dbo].[ClientHierarchy] AS ClientHierarchy
+	ON DSO_Details.ClientID = ClientHierarchy.ClientID
+		LEFT JOIN [dbo].[Clients] AS ParentClients
+		ON ClientHierarchy.ParentClientID = ParentClients.ID
+		LEFT JOIN [dbo].[Clients] AS SalesAccounts
+		ON ClientHierarchy.SalesAccountID = SalesAccounts.ID
+	LEFT JOIN [dbo].[HFM_Companies] AS Companies
+	ON DSO_Details.CompanyID = Companies.ID
+	LEFT JOIN [dbo].[AccountingUnits] AS AU
+	ON DSO_Details.AU_ID = AU.ID
+		LEFT JOIN [dbo].[HFM_Geomarkets] AS SubGeo
+		ON AU.SubGeomarketID = SubGeo.ID
+			LEFT JOIN [dbo].[HFM_Geomarkets] AS Geo
+			ON SubGeo.ParentID = Geo.ID
+			LEFT JOIN [dbo].[ManagementGeography] AS MngmtGeo
+			ON SubGeo.ManagementGeomarketID = MngmtGeo.ID
+		LEFT JOIN [dbo].[HFM_Technology] AS SubSubSeg
+		ON AU.SubSubSegmentID = SubSubSeg.ID
+			LEFT JOIN [dbo].[HFM_Technology] AS SubSeg
+			ON SubSubSeg.ParentID = SubSeg.ID
+				LEFT JOIN [dbo].[HFM_Technology] AS Seg
+				ON SubSeg.ParentID = Seg.ID
+	LEFT JOIN [dbo].[BusinessUnits] AS BU
+	ON DSO_Details.BusinessUnitID = BU.ID
+
+
+
+
+
+GO
+
+/****** Object:  View [dbo].[Revenue_Details_View]    Script Date: 10/19/2018 7:12:10 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+
+
+CREATE VIEW [dbo].[Revenue_Details_View]
 AS
 
 WITH HFMAccounts (ID, Code, ParentID, ParentCode) AS
