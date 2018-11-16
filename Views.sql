@@ -427,3 +427,165 @@ FROM
 GO
 
 
+/****** Object:  View [dbo].[DIR_Details_View]    Script Date: 16.11.2018 18:56:20 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+CREATE VIEW [dbo].[DIR_Details_View]
+AS
+
+SELECT
+	DIR_Details.[Period] AS Period,
+	DIR_Details.Source AS Source,
+	DIR_Details.ClientNumber AS ClientNumber,
+	Clients.ID AS ClientID,
+	Clients.CRMID AS CRM_ID,
+	Clients.Description AS ClientDescription,
+	ParentClients.ID AS ParentClientID,
+	ParentClients.Description AS ParentClientDescription,
+	SalesAccounts.ID AS SalesAccountID,
+	SalesAccounts.Description AS SalesAccountsDescription,
+	Companies.ID AS CompanyID,
+	Companies.Code AS CompanyCode,
+	Companies.Description AS CompanyDescription,
+	MngmtGeo.ID AS MngmtGeoID,
+	MngmtGeo.Code AS MngmtGeoCode,
+	MngmtGeo.Description AS MngmtGeoDescription,
+	Geo.ID AS GeoID,
+	Geo.Code AS GeoCode,
+	Geo.Description AS GeoDescription,
+	SubGeo.ID AS SubGeoID,
+	SubGeo.Code AS SubGeoCode,
+	SubGeo.Description AS SubGeoDescription,
+	ProductGroup.ID AS ProductGroupID,
+	ProductGroup.Code AS ProductGroupCode,
+	ProductGroup.Description AS ProductGroupDescription,
+	Seg.ID AS SegmentID,
+	Seg.Code AS SegmentCode,
+	Seg.Description AS SegmentDescription,
+	SubSeg.ID AS SubSegmentID,
+	SubSeg.Code AS SubSegmentCode,
+	SubSeg.Description AS SubSegmentDescription,
+	SubSubSeg.ID AS SubSubSegmentID,
+	SubSubSeg.Code AS SubSubSegmentCode,
+	SubSubSeg.Description AS SubSubSegmentDescription,
+	AU.ID AS AU_ID,
+	AU.Code AS AU_Code,
+	AU.Description AS AU_Description,
+	BU.ID AS BU_ID,
+	BU.Code AS BUCode,
+	BU.Description AS BUDescription,
+	CASE
+		WHEN DIR_Details.OriginalDocumentType = 'Invoice'
+			THEN OriginalInvoice.DocNumber
+		WHEN DIR_Details.OriginalDocumentType = 'SalesOrder'
+			THEN OriginalSalesOrder.Number
+	END AS InvoiceNo,
+	CASE
+		WHEN DIR_Details.DocumentType = 'Invoice'
+			THEN Invoice.DueDateFrom
+		ELSE ''
+	END AS DueDateFrom,
+	CASE
+		WHEN DIR_Details.DocumentType = 'Invoice'
+			THEN Invoice.DueDateTo
+		ELSE ''
+	END AS DueDateTo,
+	CASE
+		WHEN DIR_Details.DocumentType = 'Invoice'
+			THEN Invoice.FiscalInvoiceNo
+		ELSE ''
+	END AS FiscalInvoiceNo,
+	CASE
+		WHEN DIR_Details.DocumentType = 'Invoice'
+			THEN Invoice.FiscalInvoiceDate
+		ELSE ''
+	END AS FiscalInvoiceDate,
+	CASE
+		WHEN DIR_Details.DocumentType = 'Invoice'
+			THEN Invoice.KSReturnDate
+		ELSE ''
+	END AS KSReceptionDate,
+	CASE
+		WHEN DIR_Details.DocumentType = 'Invoice'
+			THEN Invoice.KSDepartureDate
+		ELSE ''
+	END AS KSSubmissionDate,
+	CASE
+		WHEN DIR_Details.DocumentType = 'Invoice'
+			THEN Invoice.Responsible
+		ELSE ''
+	END AS Responsible,
+	Curr.ID AS CurrencyID,
+	Curr.Description AS Currency,
+	DIR_Details.FirstDateOfPayment,
+	DIR_Details.JobStartDate,
+	DIR_Details.JobEndDate,
+	DIR_Details.FTLSubmissionDate,
+	DIR_Details.CreationDate,
+	DIR_Details.ApprovalDate,
+	DIR_Details.FirstSubmissionDate,
+	DIR_Details.InvoiceFlagDate,
+	DIR_Details.MonthOfInvoice,
+	DIR_Details.Amount AS Amount,
+	DIR_Details.AmountUSD AS AmountUSD
+FROM
+	[dbo].[DIR_Details] AS DIR_Details
+	LEFT JOIN [dbo].[Clients] AS Clients
+	ON DIR_Details.ClientID = Clients.ID
+	LEFT JOIN [dbo].[ClientHierarchy] AS ClientHierarchy
+	ON DIR_Details.ClientID = ClientHierarchy.ClientID
+		LEFT JOIN [dbo].[Clients] AS ParentClients
+		ON ClientHierarchy.ParentClientID = ParentClients.ID
+		LEFT JOIN [dbo].[Clients] AS SalesAccounts
+		ON ClientHierarchy.SalesAccountID = SalesAccounts.ID
+	LEFT JOIN [dbo].[HFM_Companies] AS Companies
+	ON DIR_Details.CompanyID = Companies.ID
+	LEFT JOIN [dbo].[AccountingUnits] AS AU
+	ON DIR_Details.AU_ID = AU.ID
+		LEFT JOIN [dbo].[HFM_Geomarkets] AS SubGeo
+		ON AU.SubGeomarketID = SubGeo.ID
+			LEFT JOIN [dbo].[HFM_Geomarkets] AS Geo
+			ON SubGeo.ParentID = Geo.ID
+			LEFT JOIN [dbo].[ManagementGeography] AS MngmtGeo
+			ON SubGeo.ManagementGeomarketID = MngmtGeo.ID
+		LEFT JOIN [dbo].[HFM_Technology] AS SubSubSeg
+		ON AU.SubSubSegmentID = SubSubSeg.ID
+			LEFT JOIN [dbo].[HFM_Technology] AS SubSeg
+			ON SubSubSeg.ParentID = SubSeg.ID
+				LEFT JOIN [dbo].[HFM_Technology] AS Seg
+				ON SubSeg.ParentID = Seg.ID
+					LEFT JOIN [dbo].[HFM_Technology] AS ProductGroup
+					ON Seg.ParentID = ProductGroup.ID
+	LEFT JOIN [dbo].[BusinessUnits] AS BU
+	ON DIR_Details.BusinessUnitID = BU.ID
+	LEFT JOIN [dbo].[Currencies] AS Curr
+	ON DIR_Details.CurrencyID = Curr.ID
+	LEFT JOIN [dbo].[LegalEntiites] AS LE
+	ON DIR_Details.LegalEntityID = LE.ID
+	LEFT JOIN [dbo].[Invoice] AS Invoice
+	ON DIR_Details.DocumentID = Invoice.ID
+		AND DIR_Details.DocumentType = Invoice.TypeName
+	LEFT JOIN [dbo].[Invoice] AS OriginalInvoice
+	ON DIR_Details.OriginalDocumentID = OriginalInvoice.ID
+		AND DIR_Details.OriginalDocumentType = OriginalInvoice.TypeName
+	LEFT JOIN [dbo].[SalesOrder] AS OriginalSalesOrder
+	ON DIR_Details.OriginalDocumentID = OriginalSalesOrder.ID
+		AND DIR_Details.OriginalDocumentType = OriginalSalesOrder.TypeName
+
+
+
+
+
+
+
+
+
+
+GO										      
+
